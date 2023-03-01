@@ -1,121 +1,52 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+
+
 public class Main {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.construct(new int[][] { new int[]{1,1,1,1,0,0,0,0},new int[]{1,1,1,1,0,0,0,0}, new int[]{1,1,1,1,1,1,1,1},new int[]{1,1,1,1,1,1,1,1},new int[]{1,1,1,1,0,0,0,0},new int[]{1,1,1,1,0,0,0,0}, new int[]{1,1,1,1,0,0,0,0},new int[]{1,1,1,1,0,0,0,0}});
+
 
     }
 }
+class Solution{
 
-
-// Definition for a QuadTree node.
-class Node {
-    public boolean val;
-    public boolean isLeaf;
-    public Node topLeft;
-    public Node topRight;
-    public Node bottomLeft;
-    public Node bottomRight;
-
-
-    public Node() {
-        this.val = false;
-        this.isLeaf = false;
-        this.topLeft = null;
-        this.topRight = null;
-        this.bottomLeft = null;
-        this.bottomRight = null;
-    }
-
-    public Node(boolean val, boolean isLeaf) {
-        this.val = val;
-        this.isLeaf = isLeaf;
-        this.topLeft = null;
-        this.topRight = null;
-        this.bottomLeft = null;
-        this.bottomRight = null;
-    }
-
-    public Node(boolean val, boolean isLeaf, Node topLeft, Node topRight, Node bottomLeft, Node bottomRight) {
-        this.val = val;
-        this.isLeaf = isLeaf;
-        this.topLeft = topLeft;
-        this.topRight = topRight;
-        this.bottomLeft = bottomLeft;
-        this.bottomRight = bottomRight;
-    }
-};
-
-
-class Solution {
-    public Node compute(int tlX,int tlY,int trX,int trY,int blX,int blY,int brX,int brY,int[][] grid,int[][] sum) {
-
-
-
-        int len = trY - tlY;
-
-        int val = getVal(sum,brX,brY) + getVal(sum,tlX-1,tlY-1)  - (getVal(sum,trX-1,trY) +  getVal(sum,blX,blY-1));
-
-        if(val == 0 || val == (len+1) * (len+1)) {
-            return new Node(grid[trX][trY] == 1,true,null,null,null,null);
-        }
-
-        len = len / 2 + 1;
-
-        Node topLeft = compute(tlX,tlY,trX,trY-len,blX-len,blY,brX-len,brY-len,grid,sum);
-
-        Node topRight = compute(tlX,tlY+len,trX,trY,blX-len,blY+len,brX-len,brY,grid,sum);
-
-        Node bottomLeft = compute(tlX+len,tlY,trX+len,trY-len,blX,blY,brX,brY-len,grid,sum);
-
-        Node bottomRight = compute(tlX+len,tlY+len,trX+len,trY,blX,blY+len,brX,brY,grid,sum);
-
-
-        return new Node(true,false,topLeft,topRight,bottomLeft,bottomRight);
-
-    }
-
-    private int getVal(int[][] sum, int x, int y) {
-        if(x < 0 || y < 0 || x >= sum.length || y >= sum.length) {
-            return 0;
-        }
-        return sum[x][y];
-    }
-
-
-    public Node construct(int[][] grid) {
-        int[][] sum = buildSum(grid);
-
-        for(int i = 0;i< grid.length;i++) {
-            for(int j = 0;j<grid.length;j++) {
-                System.out.print(sum[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-        return compute(0,0,0,grid.length-1, grid.length -1,0,grid.length-1,grid.length-1,grid,sum);
-    }
-
-    private int[][] buildSum(int[][] grid) {
-
-        int[][] sum = new int[grid.length][grid.length];
-
-        sum[0][0] = grid[0][0];
-
-        for(int i = 1;i< grid.length;i++) {
-            sum[0][i] = sum[0][i-1] + grid[0][i];
-        }
-
-        for(int j = 1;j<grid.length;j++) {
-            sum[j][0] = sum[j-1][0] + grid[j][0];
-        }
-
-        for(int i = 1;i<grid.length;i++) {
-            for(int j = 1;j< grid.length;j++) {
-                sum[i][j] = sum[i][j-1] + sum[i-1][j] + grid[i][j] - sum[i-1][j-1];
-            }
-        }
-
-        return sum;
-
-    }
 }
+
+
+//class Solution {
+//    public int searchInsert(int[] nums, int target) {
+//
+//        int left = 0,right = nums.length-1,mid = 0;
+//
+//        while(left < right) {
+//
+//
+//            mid = left + (right - left) / 2;
+//
+//            if(nums[mid] == target) {
+//                return mid;
+//            }
+//
+//            if(nums[mid] > target) {
+//                right = mid - 1;
+//            }
+//            else{
+//                left = mid + 1;
+//            }
+//
+//
+//        }
+//
+//        if(left == right) {
+//
+//        }
+//        else if(left )
+//
+//
+//
+//
+//
+//    }
+//}

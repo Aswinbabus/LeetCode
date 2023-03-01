@@ -1,0 +1,60 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+
+        mergeSort(0,nums.length-1,nums);
+        return nums;
+
+    }
+
+    void mergeSort(int left,int right,int[] nums){
+
+        if(left == right) return;
+
+        int mid = left + (right - left) / 2;
+
+        mergeSort(left,mid,nums);
+        mergeSort(mid+1,right,nums);
+        merge(left,mid,right,nums);
+
+    }
+
+    private void merge(int left, int mid, int right, int[] nums) {
+
+        int[] arr = new int[right - left + 1];
+
+        int i = left,j = mid + 1,k = 0;
+
+        while( i <= mid && j <= right) {
+
+            if(nums[i] < nums[j]) {
+                arr[k++] = nums[i++];
+            }
+            else{
+                arr[k++] = nums[j++];
+            }
+
+        }
+
+        while(i <= mid) {
+            arr[k++] = nums[i++];
+        }
+        while(j <= right) {
+            arr[k++] = nums[j++];
+        }
+
+        for(int a = left,b = 0;a<=right;a++,b++) {
+            nums[a] = arr[b];
+        }
+
+    }
+
+    private void swap(int left, int right, int[] nums) {
+
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+
+
+    }
+
+}

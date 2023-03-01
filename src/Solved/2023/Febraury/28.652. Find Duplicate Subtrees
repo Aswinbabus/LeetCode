@@ -1,0 +1,42 @@
+
+class Solution {
+
+    public String computePath(TreeNode root,Map<String,TreeNode> duplicates,Map<String,TreeNode> subtreePaths) {
+
+        if(root == null) {
+            return null;
+        }
+
+        String leftSubtreePath = computePath(root.left,duplicates,subtreePaths);
+        String rightSubtreePath = computePath(root.right,duplicates,subtreePaths);
+
+        String currPath = (leftSubtreePath != null ? leftSubtreePath + "," : "") + root.val + (rightSubtreePath != null ? "," + rightSubtreePath : "");
+
+        if(!subtreePaths.containsKey(currPath)) {
+            subtreePaths.put(currPath,root);
+        }
+        else{
+            if(!duplicates.containsKey(currPath)){
+                duplicates.put(currPath,root);
+            }
+
+        }
+
+        return currPath;
+
+
+    }
+
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+
+        Map<String,TreeNode> duplicates = new HashMap<>();
+
+        Map<String,TreeNode> subtreePaths = new HashMap<String,TreeNode>();
+
+        computePath(root,duplicates,subtreePaths);
+
+        return duplicates.values().stream().collect(Collectors.toList());
+
+
+    }
+}
