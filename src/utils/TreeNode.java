@@ -1,5 +1,4 @@
-public class TreeUtil {
-}
+package utils;
 
 class TreeNode {
     int val;
