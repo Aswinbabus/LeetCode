@@ -1,7 +1,7 @@
 package Solved.Year2023.Sept.Day1;
 
 class Solution {
-public int[] countBits(int n) {
+    public int[] countBits(int n) {
 
     long lastPower = 0,nextPower = 1;
 
@@ -26,4 +26,5 @@ public int[] countBits(int n) {
 
     return bits;
 }
+
 }
